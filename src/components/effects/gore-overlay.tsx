@@ -30,12 +30,16 @@ export default function GoreOverlay() {
 
   useEffect(() => {
     if (!active) return;
-    if (reduced) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    // En reduced-motion ralentizamos un 60% pero NO desactivamos —
+    // el gore es un easter egg explícito del usuario (triple-click),
+    // no una animación ambiente.
+    const speedScale = reduced ? 0.4 : 1;
 
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let width = window.innerWidth;
@@ -66,7 +70,7 @@ export default function GoreOverlay() {
       drops.push({
         x: Math.random() * width,
         y: prefill ? Math.random() * height * 0.7 : -40 - Math.random() * 120,
-        vy: 320 + Math.random() * 380,
+        vy: (320 + Math.random() * 380) * speedScale,
         len: 28 + Math.random() * 60,
         width: 2.5 + Math.random() * 3.5,
       });
