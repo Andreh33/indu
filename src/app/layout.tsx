@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import PlausibleAnalytics from '@/lib/analytics/plausible';
 import SwRegister from '@/components/pwa/sw-register';
+import GoreOverlay from '@/components/effects/gore-overlay';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://industrialfighters.com'),
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="es" className="h-full">
       <body className="min-h-full flex flex-col">
         {children}
+        <GoreOverlay />
         <PlausibleAnalytics />
         <SwRegister />
       </body>

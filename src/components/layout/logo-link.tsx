@@ -4,16 +4,32 @@ import * as Dialog from '@radix-ui/react-dialog';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import LogoWordmark from '@/components/brand/logo-wordmark';
+import { toggleGoreMode } from '@/lib/state/gore-mode';
 
 const THRESHOLD = 5;
 const WINDOW_MS = 2000;
+const TRIPLE_WINDOW_MS = 600;
 
 export default function LogoLink() {
   const [open, setOpen] = useState(false);
   const clicks = useRef<number[]>([]);
+  const tripleClicks = useRef<number[]>([]);
 
   function onClick(e: React.MouseEvent) {
     const now = Date.now();
+
+    // Ventana triple-click corta — alterna modo carnicería.
+    tripleClicks.current = tripleClicks.current.filter((t) => now - t < TRIPLE_WINDOW_MS);
+    tripleClicks.current.push(now);
+    if (tripleClicks.current.length >= 3) {
+      e.preventDefault();
+      tripleClicks.current = [];
+      clicks.current = [];
+      toggleGoreMode();
+      return;
+    }
+
+    // Ventana 5-click larga — abre créditos.
     clicks.current = clicks.current.filter((t) => now - t < WINDOW_MS);
     clicks.current.push(now);
     if (clicks.current.length >= THRESHOLD) {
