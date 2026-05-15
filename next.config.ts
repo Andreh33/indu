@@ -1,13 +1,8 @@
 import type { NextConfig } from 'next';
-import withSerwistInit from '@serwist/next';
 
-const withSerwist = withSerwistInit({
-  swSrc: 'src/app/sw.ts',
-  swDest: 'public/sw.js',
-  cacheOnNavigation: true,
-  reloadOnOnline: true,
-  disable: process.env.NODE_ENV === 'development',
-});
+// PWA: usamos un service worker manual en public/sw.js + registro client
+// (src/components/pwa/sw-register.tsx). @serwist/next quedó desactivado
+// porque su pipeline de build en Next 16 no estaba emitiendo el sw a producción.
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
@@ -53,4 +48,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSerwist(nextConfig);
+export default nextConfig;
