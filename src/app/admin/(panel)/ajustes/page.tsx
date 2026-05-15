@@ -5,6 +5,7 @@ import ContactForm from './contact-form';
 import AnnouncementForm from './announcement-form';
 import AboutForm from './about-form';
 import SocialsForm from './socials-form';
+import AppDistributionForm from './app-distribution-form';
 
 async function getValue<T>(key: string): Promise<T | null> {
   const rows = await db.select().from(settings).where(eq(settings.key, key)).limit(1);
@@ -12,13 +13,20 @@ async function getValue<T>(key: string): Promise<T | null> {
 }
 
 export default async function AdminSettingsPage() {
-  const [contact, announcement, about, socials] = await Promise.all([
+  const [contact, announcement, about, socials, appDist] = await Promise.all([
     getValue<{ whatsapp: string; email: string; address: string }>('contact'),
     getValue<{ enabled: boolean; messages: string[] }>('announcement_bar'),
     getValue<{ slogan: string; manifesto: string; origin: string }>('about'),
     getValue<{ instagram?: string; tiktok?: string; youtube?: string; twitter?: string }>(
       'socials',
     ),
+    getValue<{
+      apkUrl?: string;
+      version?: string;
+      sha256?: string;
+      packageName?: string;
+      minSdk?: number;
+    }>('app_distribution'),
   ]);
 
   return (
@@ -66,12 +74,26 @@ export default async function AdminSettingsPage() {
         </div>
       </section>
 
-      <section className="mt-12 border-t border-[var(--color-border)] pt-10 pb-20">
+      <section className="mt-12 border-t border-[var(--color-border)] pt-10">
         <h2 className="font-display text-xl uppercase tracking-tight text-[var(--color-canvas-0)]">
           Redes
         </h2>
         <div className="mt-6">
           <SocialsForm initial={socials} />
+        </div>
+      </section>
+
+      <section className="mt-12 border-t border-[var(--color-border)] pt-10 pb-20">
+        <h2 className="font-display text-xl uppercase tracking-tight text-[var(--color-canvas-0)]">
+          App distribution (TWA / APK)
+        </h2>
+        <p className="mt-1 text-sm text-[var(--color-fg-muted)]">
+          URL del APK firmado y SHA256 del keystore. Lee{' '}
+          <code className="font-mono text-xs text-[var(--color-blood-400)]">docs/app-build.md</code>{' '}
+          para el pipeline Bubblewrap completo.
+        </p>
+        <div className="mt-6">
+          <AppDistributionForm initial={appDist} />
         </div>
       </section>
     </div>

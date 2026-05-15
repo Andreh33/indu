@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#050505"/>
+  <rect x="32" y="32" width="448" height="448" fill="#0E0E0C" stroke="#ED2939" stroke-width="8"/>
+  <text x="256" y="320" text-anchor="middle" font-family="'Anton','Impact',sans-serif" font-weight="900" font-size="280" letter-spacing="-12" fill="#FAFAF7">IF</text>
+  <circle cx="380" cy="430" r="8" fill="#ED2939"/>
+  <text x="256" y="430" text-anchor="middle" font-family="monospace" font-size="22" letter-spacing="6" fill="#9F9C8E">EST. 2019</text>
+</svg>

@@ -7,7 +7,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 const LINKS = [
   { href: '/shop', label: 'Tienda' },
   { href: '/trabajos', label: 'Trabajos' },
+  { href: '/blog', label: 'Diario' },
+  { href: '/app', label: 'Nuestra app' },
+  { href: '/wishlist', label: 'Lista' },
   { href: '/sobre-nosotros', label: 'Sobre nosotros' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/carrito', label: 'Carrito' },
 ];
 

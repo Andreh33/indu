@@ -68,7 +68,7 @@
   --text-4xl: clamp(3rem, 2.4rem + 3vw, 5rem);
   --text-5xl: clamp(4rem, 3rem + 5vw, 7.5rem);
   --text-6xl: clamp(5rem, 3.5rem + 7.5vw, 10rem);
-  --text-hero: clamp(6rem, 4rem + 12vw, 14rem);
+  --text-hero: clamp(3rem, 2rem + 9vw, 14rem);
 
   /* ------- Espaciado ------- */
   --spacing-section: clamp(4rem, 2rem + 8vw, 10rem);
@@ -148,6 +148,18 @@ body {
 ::selection {
   background: var(--color-blood-400);
   color: var(--color-canvas-0);
+}
+
+/* Tipografía display: nunca rompe palabras a media letra.
+   text-wrap: balance reparte el ancho entre líneas (cuando el navegador lo soporta). */
+.font-display,
+h1,
+h2,
+h3 {
+  overflow-wrap: normal;
+  word-break: keep-all;
+  text-wrap: balance;
+  hyphens: none;
 }
 
 /* Focus visible: anillo rojo offset 4px (§7.4) */

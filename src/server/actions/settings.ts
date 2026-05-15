@@ -86,6 +86,34 @@ export async function updateAboutAction(
   return { error: null, ok: true };
 }
 
+const AppDistributionSchema = z.object({
+  apkUrl: z.string().url().or(z.literal('')),
+  version: z.string().regex(/^\d+\.\d+\.\d+$/).or(z.literal('')),
+  sha256: z
+    .string()
+    .regex(/^([A-F0-9]{2}:){31}[A-F0-9]{2}$/i)
+    .or(z.literal('')),
+  packageName: z.string().regex(/^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+$/i),
+  minSdk: z.number().int().min(21).max(35),
+});
+
+export async function updateAppDistributionAction(
+  _prev: SettingsFormState,
+  formData: FormData,
+): Promise<SettingsFormState> {
+  const session = await requireAdmin();
+  const parsed = AppDistributionSchema.safeParse({
+    apkUrl: ((formData.get('apkUrl') as string) || '').trim(),
+    version: ((formData.get('version') as string) || '').trim(),
+    sha256: ((formData.get('sha256') as string) || '').trim(),
+    packageName: ((formData.get('packageName') as string) || '').trim(),
+    minSdk: Number(formData.get('minSdk') || 24),
+  });
+  if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? 'Inválido' };
+  await upsertSetting('app_distribution', parsed.data, session.uid);
+  return { error: null, ok: true };
+}
+
 const SocialsSchema = z.object({
   instagram: z.string().url().or(z.literal('')),
   tiktok: z.string().url().or(z.literal('')),

@@ -5,13 +5,11 @@ import RoundCounter from '@/components/home/round-counter';
 import AnimatedCounter from '@/components/motion/animated-counter';
 import Marquee from '@/components/motion/marquee';
 import ScrollFillText from '@/components/motion/scroll-fill-text';
-import SplitText from '@/components/motion/split-text';
 import ScrollPathDraw from '@/components/motion/scroll-path-draw';
 import JsonLd from '@/components/seo/json-ld';
 import { CategoryIcon } from '@/components/brand/icons';
 import HeroBackdrop from '@/components/home/hero-backdrop';
 import WorkCard from '@/components/shop/work-card';
-import Product3DPreview from '@/components/shop/product-3d-preview';
 import { getCategories, getPublishedProducts } from '@/server/queries/products';
 import { getFeaturedWorks } from '@/server/queries/works';
 import { getSocials } from '@/server/queries/settings';
@@ -153,19 +151,21 @@ export default async function HomePage() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-blood-400)]">
             {'// ROUND 1 — IDENTIDAD · EST. 2019'}
           </p>
-          <SplitText
-            as="h1"
-            text={'De donde\nvenimos\nse lucha\ncada día.'}
-            staggerChildren={0.025}
-            delayChildren={0.25}
-            className="mt-10 font-display uppercase leading-[0.85] tracking-[-0.03em] text-[length:var(--text-hero)] text-[var(--color-canvas-0)]"
-          />
-          <p className="mt-12 max-w-[44ch] text-[length:var(--text-lg)] text-[var(--color-fg-muted)]">
+          <h1
+            data-slogan
+            className="mt-6 flex flex-col items-center gap-y-1 font-display uppercase leading-[0.78] tracking-[-0.03em] text-[length:var(--text-hero)] text-[var(--color-canvas-0)] [text-wrap:balance] md:gap-y-2"
+          >
+            <span className="block whitespace-nowrap">De donde</span>
+            <span className="block whitespace-nowrap">venimos</span>
+            <span className="block whitespace-nowrap">se lucha</span>
+            <span className="block whitespace-nowrap">cada día.</span>
+          </h1>
+          <p className="mt-8 max-w-[44ch] text-[length:var(--text-lg)] text-[var(--color-fg-muted)]">
             Equipamiento de combate hecho a mano en España.
             <br />
             Personalizado producto a producto.
           </p>
-          <div className="mt-12 flex flex-col items-center gap-4 md:flex-row md:gap-6">
+          <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:gap-6">
             <Link
               href="/shop"
               className="inline-flex h-14 items-center bg-[var(--color-blood-400)] px-10 font-display text-base uppercase tracking-[0.06em] text-[var(--color-canvas-0)] transition-colors hover:bg-[var(--color-blood-300)]"
@@ -343,14 +343,14 @@ export default async function HomePage() {
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Link
                 href={`/producto/${heroProduct.slug}`}
-                className="relative block"
+                className="relative aspect-[4/5] block overflow-hidden bg-[var(--color-bg-card)]"
               >
                 {heroProduct.images[0]?.url ? (
-                  <Product3DPreview
-                    imageUrl={heroProduct.images[0].url}
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={heroProduct.images[0].url}
                     alt={heroProduct.images[0].alt ?? heroProduct.name}
-                    embroidery="TONY"
-                    flag="🇪🇸"
+                    className="h-full w-full object-cover transition-transform duration-[1000ms] ease-[var(--ease-fight)] hover:scale-105"
                   />
                 ) : null}
               </Link>

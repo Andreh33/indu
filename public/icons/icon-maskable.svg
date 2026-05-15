@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Safe zone: 80% central (40-460). Borde extra rojo para que el recorte de Android no quite el monograma -->
+  <rect width="512" height="512" fill="#ED2939"/>
+  <rect x="40" y="40" width="432" height="432" fill="#050505"/>
+  <text x="256" y="332" text-anchor="middle" font-family="'Anton','Impact',sans-serif" font-weight="900" font-size="260" letter-spacing="-10" fill="#FAFAF7">IF</text>
+</svg>

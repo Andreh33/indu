@@ -9,6 +9,7 @@ const LINKS = [
   { href: '/shop', label: 'Tienda' },
   { href: '/trabajos', label: 'Trabajos' },
   { href: '/blog', label: 'Diario' },
+  { href: '/app', label: 'App' },
   { href: '/sobre-nosotros', label: 'Sobre' },
 ];
 

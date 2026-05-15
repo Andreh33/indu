@@ -15,6 +15,13 @@
       "when": 1778857111279,
       "tag": "0001_tired_betty_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1778860249633,
+      "tag": "0002_glorious_gauntlet",
+      "breakpoints": true
     }
   ]
 }

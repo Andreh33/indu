@@ -6,6 +6,7 @@ import Footer from '@/components/layout/footer';
 import CartDrawerMount from '@/components/shop/cart-drawer-mount';
 import GlobalEasterEggs from '@/components/easter-eggs/global-easter-eggs';
 import LoadingIntro from '@/components/layout/loading-intro';
+import AppInstallBanner from '@/components/layout/app-install-banner';
 import { getAnnouncementBar } from '@/server/queries/settings';
 
 export default async function PublicLayout({
@@ -32,6 +33,7 @@ export default async function PublicLayout({
       <CartDrawerMount />
       <GlobalEasterEggs />
       <LoadingIntro />
+      <AppInstallBanner />
       <GrainOverlay />
       <VignetteOverlay />
     </SiteProviders>

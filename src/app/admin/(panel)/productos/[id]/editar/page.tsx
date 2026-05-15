@@ -5,6 +5,8 @@ import { db } from '@/lib/db/client';
 import { categories, productImages, products } from '@/lib/db/schema';
 import ProductForm from '../../_components/product-form';
 import DeleteProductButton from './delete-button';
+import VariantsSection from './variants-section';
+import { getVariantsByProductId } from '@/server/queries/variants';
 
 type Params = { id: string };
 
@@ -20,6 +22,7 @@ export default async function EditProductPage({ params }: { params: Promise<Para
     .where(eq(productImages.productId, id))
     .orderBy(asc(productImages.displayOrder));
   const cats = await db.select().from(categories).orderBy(asc(categories.displayOrder));
+  const variants = await getVariantsByProductId(id);
 
   return (
     <div>
@@ -44,6 +47,12 @@ export default async function EditProductPage({ params }: { params: Promise<Para
       <div className="mt-8">
         <ProductForm categories={cats} product={{ ...product, images }} />
       </div>
+
+      <VariantsSection
+        productId={product.id}
+        basePriceCents={product.basePriceCents}
+        variants={variants}
+      />
     </div>
   );
 }

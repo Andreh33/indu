@@ -83,6 +83,30 @@ export const products = sqliteTable('products', {
 });
 
 /* ============================================================
+ * Variantes de producto (SKU + stock + precio override).
+ * Una variante = UNA combinación concreta (talla L · color rojo · peso 12oz).
+ * Stock null = stock infinito. priceCents null = usa basePriceCents del producto.
+ * Si el producto no tiene variantes, se trata como stock infinito (legacy mode).
+ * ============================================================ */
+export const productVariants = sqliteTable('product_variants', {
+  id: uuid('id').primaryKey(),
+  productId: text('product_id')
+    .notNull()
+    .references(() => products.id, { onDelete: 'cascade' }),
+  sku: text('sku').notNull(),
+  size: text('size'),
+  color: text('color'),
+  weight: text('weight'),
+  stockQuantity: integer('stock_quantity'),
+  priceCents: integer('price_cents'),
+  active: integer('active', { mode: 'boolean' }).notNull().default(true),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+});
+
+export type ProductVariant = typeof productVariants.$inferSelect;
+
+/* ============================================================
  * Imágenes de producto
  * ============================================================ */
 export const productImages = sqliteTable('product_images', {

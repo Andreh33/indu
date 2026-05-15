@@ -11,7 +11,7 @@ export function TopoDimOverlay() {
     <div
       aria-hidden
       className="pointer-events-none fixed inset-0 z-[0]"
-      style={{ background: 'rgba(5, 5, 5, 0.82)' }}
+      style={{ background: 'rgba(5, 5, 5, 0.88)' }}
     />
   );
 }

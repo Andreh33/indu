@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import LogoMark from '@/components/brand/logo-mark';
+import LogoWordmark from '@/components/brand/logo-wordmark';
 import SoundToggle from '@/components/layout/sound-toggle';
 import { getSocials } from '@/server/queries/settings';
 
@@ -10,7 +10,7 @@ export default async function Footer() {
       <div className="mx-auto max-w-[var(--container-max)] px-6 md:px-10 lg:px-16">
         <div className="grid gap-12 md:grid-cols-3">
           <div>
-            <LogoMark className="h-24 w-24 text-[var(--color-canvas-0)]" />
+            <LogoWordmark className="h-12 text-[var(--color-canvas-0)]" />
             <p className="mt-4 max-w-[28ch] text-sm text-[var(--color-fg-muted)]">
               De donde venimos se lucha cada día.
             </p>
