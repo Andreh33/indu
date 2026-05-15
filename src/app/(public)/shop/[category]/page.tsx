@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import Container from '@/components/ui/container';
 import FilterBar from '@/components/shop/filter-bar';
-import ProductGrid from '@/components/shop/product-grid';
+import ShopExplorer from '@/components/shop/shop-explorer';
 import Skeleton from '@/components/ui/skeleton';
 import {
   getCategories,
@@ -63,7 +63,7 @@ async function CategoryContent({ params }: { params: Promise<Params> }) {
       <FilterBar categories={categories} activeSlug={cat.slug} />
 
       <Container size="max" className="py-16">
-        <ProductGrid products={products} />
+        <ShopExplorer products={products} />
       </Container>
     </>
   );

@@ -11,6 +11,7 @@ import JsonLd from '@/components/seo/json-ld';
 import { CategoryIcon } from '@/components/brand/icons';
 import HeroBackdrop from '@/components/home/hero-backdrop';
 import WorkCard from '@/components/shop/work-card';
+import Product3DPreview from '@/components/shop/product-3d-preview';
 import { getCategories, getPublishedProducts } from '@/server/queries/products';
 import { getFeaturedWorks } from '@/server/queries/works';
 import { getSocials } from '@/server/queries/settings';
@@ -342,14 +343,14 @@ export default async function HomePage() {
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <Link
                 href={`/producto/${heroProduct.slug}`}
-                className="relative aspect-[4/5] overflow-hidden bg-[var(--color-bg-card)]"
+                className="relative block"
               >
                 {heroProduct.images[0]?.url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={heroProduct.images[0].url}
+                  <Product3DPreview
+                    imageUrl={heroProduct.images[0].url}
                     alt={heroProduct.images[0].alt ?? heroProduct.name}
-                    className="h-full w-full object-cover transition-transform duration-[1000ms] ease-[var(--ease-fight)] hover:scale-105"
+                    embroidery="TONY"
+                    flag="🇪🇸"
                   />
                 ) : null}
               </Link>

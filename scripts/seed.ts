@@ -29,6 +29,7 @@ async function main() {
   await db.delete(schema.products);
   await db.delete(schema.categories);
   await db.delete(schema.settings);
+  await db.delete(schema.posts);
 
   // ---------- Categorías ----------
   console.log('  · inserting categories');
@@ -604,6 +605,96 @@ async function main() {
         origin:
           'Empezamos en un gimnasio de barrio de Bilbao en 2019. Una máquina de coser de segunda mano y dos clientes. Hoy seguimos cosiendo nosotros mismos cada prenda.',
       },
+    },
+  ]);
+
+  // ---------- Blog posts ----------
+  console.log('  · inserting blog posts');
+  await db.insert(schema.posts).values([
+    {
+      id: crypto.randomUUID(),
+      slug: 'como-elegir-talla-shorts-muay-thai',
+      title: 'Cómo elegir la talla de unos shorts Muay Thai (sin equivocarte)',
+      excerpt:
+        'El tallaje tailandés no funciona como el europeo. Aquí va la guía corta: cómo medir, qué prima sobre la cintura, y cuándo subir una talla.',
+      content: `El shorts Muay Thai no es un short de gimnasio. Pasa por encima de la rodilla, lleva un cinturón ancho con elástico interior, y el ancho importa más que el largo.
+
+La trampa: el tallaje tailandés está cortado para cuerpos más estrechos de cadera que el europeo medio. Si en otras prendas usas una L europea, en Muay Thai probablemente necesitas XL.
+
+Cómo medir bien:
+1. Cintura — pasa la cinta justo encima de las crestas ilíacas, no a la altura del ombligo.
+2. Cadera — el punto más ancho, normalmente unos 18 cm por debajo de la cintura.
+3. Largo deseado — desde la cintura hasta justo por encima de la rodilla.
+
+Regla general:
+— Si tu cintura supera 88 cm, salta a L.
+— Si tu cintura supera 96 cm, salta a XL.
+— Si tu cadera supera 110 cm, salta a XXL aunque tu cintura sea menor.
+
+¿Y si dudo entre dos tallas? Sube. Es mejor que sobre cinturón a que apriete: el cinturón ancho se ajusta con cordón interior y nunca pierde forma.
+
+¿Personalizado? Para pedidos de equipo (5+ unidades) hacemos talla a medida sin coste. Mándanos las medidas y cosemos los shorts con el ancho exacto de cada persona.`,
+      coverUrl:
+        'https://images.pexels.com/photos/4761779/pexels-photo-4761779.jpeg?w=1400&auto=compress&cs=tinysrgb',
+      tags: ['guías', 'muay thai'],
+      status: 'published',
+      publishedAt: new Date('2026-04-22'),
+    },
+    {
+      id: crypto.randomUUID(),
+      slug: 'satin-vs-poliester-para-shorts-de-combate',
+      title: 'Satén vs poliéster: por qué cosemos satén y no nos da la gana cambiar',
+      excerpt:
+        'Pesa menos, fluye más, conserva el brillo tras 100 lavados. Y se borda mejor. Aquí va el porqué técnico, sin paja.',
+      content: `Mucha gente nos pregunta por qué insistimos en satén 100% poliéster cuando hay alternativas más baratas. La respuesta corta: porque es mejor.
+
+La larga:
+
+Caída. El satén tiene un acabado satinado que hace que la prenda fluya con el cuerpo. En un combate eso se traduce en menos resistencia visual a las patadas altas. No es estética: es lectura del movimiento.
+
+Peso. 120 g/m². Es ligero sin sentirse "barato". Otros tejidos sintéticos del mercado pesan 90 g/m² y se notan plastiquosos.
+
+Bordado. El satén aguanta el bordado sin deformarse. Polyester pesado se "encoge" alrededor del bordado y queda fea ondulación. Satén no.
+
+Lavados. Tras 100 ciclos a 30°, un satén bueno mantiene el brillo. Hemos hecho la prueba. Tenemos unos shorts del 2020 que siguen como nuevos.
+
+¿Algodón? Pesa demasiado y absorbe sudor (se vuelve pesado en el round 2). No para combate.
+
+¿Spandex? Bien para rashguards, fatal para shorts. Demasiado ajustado, no permite la patada alta sin tensión.
+
+Por eso satén. Por eso ese satén concreto. Por eso 120 g/m² y no otro gramaje.`,
+      coverUrl:
+        'https://images.pexels.com/photos/7991668/pexels-photo-7991668.jpeg?w=1400&auto=compress&cs=tinysrgb',
+      tags: ['materiales', 'taller'],
+      status: 'published',
+      publishedAt: new Date('2026-03-15'),
+    },
+    {
+      id: crypto.randomUUID(),
+      slug: 'pedido-equipo-gimnasio-corona-bilbao',
+      title: 'Equipamos al Gimnasio Corona de Bilbao: 22 shorts en 40 días',
+      excerpt:
+        'La historia detrás del pedido: cómo pasamos del primer mensaje al ring de Lyon en seis semanas.',
+      content: `Cuando Iker Goikoetxea nos escribió en agosto, no sabíamos que iba a ser uno de los pedidos más bonitos del año. "Necesito 22 shorts para el equipo de competición. Mismo diseño, número en la espalda, bandera del barrio."
+
+22 shorts. Cuatro tallas distintas. Un solo diseño. Plazo: 40 días para llegar a la pelea de Lyon.
+
+Primera reunión por WhatsApp. Iker manda una foto del escudo del gimnasio: cinta negra, costura blanca, leones a los lados. Nos pidió que respetáramos esa identidad pero la lleváramos al cinturón.
+
+Tres bocetos. El primero llevaba el escudo entero. Demasiado cargado. El segundo eliminó los leones. El tercero — el que se eligió — dejó solo la cinta negra con costura blanca y el escudo bordado pequeño en el lateral. Eligieron ese.
+
+Producción: 22 unidades, talla a medida cada una. Eso significó 22 patrones distintos, cortados a mano. Bordado en serie: cinco días seguidos en el taller solo bordando.
+
+Entrega: día 38. Dos días de margen sobre el plazo.
+
+¿El resultado? El equipo salió al ring del Centre Sportif Albert Camus de Lyon. "Salimos al ring y parecíamos otra cosa", dijo Iker después.
+
+Esa frase es la razón por la que cosemos lo que cosemos. No vendemos shorts: vendemos eso. La sensación de salir y parecer otra cosa.`,
+      coverUrl:
+        'https://images.pexels.com/photos/4761669/pexels-photo-4761669.jpeg?w=1400&auto=compress&cs=tinysrgb',
+      tags: ['equipos', 'casos'],
+      status: 'published',
+      publishedAt: new Date('2026-02-04'),
     },
   ]);
 

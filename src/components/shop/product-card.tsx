@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { formatPriceEUR } from '@/lib/utils/format-price';
 import { useCursorStore } from '@/lib/cursor/store';
+import WishlistButton from './wishlist-button';
 import type { ProductWithImages } from '@/server/queries/products';
 
 type Props = { product: ProductWithImages };
@@ -46,6 +47,8 @@ export default function ProductCard({ product }: Props) {
         <span className="absolute left-3 top-3 bg-[var(--color-canvas-950)] px-2 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-canvas-0)]">
           Personalizable
         </span>
+        {/* Wishlist */}
+        <WishlistButton slug={product.slug} className="absolute right-3 top-3 z-[3]" />
         {/* CTA emergente desde abajo */}
         <div className="absolute inset-x-0 bottom-0 translate-y-full bg-[var(--color-blood-400)] px-4 py-3 transition-transform duration-[500ms] ease-[var(--ease-fight)] group-hover:translate-y-0">
           <p className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-canvas-0)]">

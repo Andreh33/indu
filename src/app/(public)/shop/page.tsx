@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Container from '@/components/ui/container';
 import FilterBar from '@/components/shop/filter-bar';
-import ProductGrid from '@/components/shop/product-grid';
+import ShopExplorer from '@/components/shop/shop-explorer';
 import { getCategories, getPublishedProducts } from '@/server/queries/products';
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default async function ShopPage() {
       <FilterBar categories={categories} />
 
       <Container size="max" className="py-16">
-        <ProductGrid products={products} />
+        <ShopExplorer products={products} />
       </Container>
     </>
   );

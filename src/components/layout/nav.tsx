@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import CartBadge from './cart-badge';
 import LogoLink from './logo-link';
+import LocaleSwitcher from './locale-switcher';
 import MobileMenu from './mobile-menu';
+import WishlistBadge from './wishlist-badge';
 
 const LINKS = [
   { href: '/shop', label: 'Tienda' },
   { href: '/trabajos', label: 'Trabajos' },
-  { href: '/sobre-nosotros', label: 'Sobre nosotros' },
+  { href: '/blog', label: 'Diario' },
+  { href: '/sobre-nosotros', label: 'Sobre' },
 ];
 
 export default function Nav() {
@@ -25,7 +28,11 @@ export default function Nav() {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 md:gap-3">
+          <LocaleSwitcher className="hidden md:flex" />
+          <div className="hidden md:block">
+            <WishlistBadge />
+          </div>
           <div className="hidden md:block">
             <CartBadge />
           </div>

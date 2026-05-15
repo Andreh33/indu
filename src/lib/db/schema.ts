@@ -190,6 +190,28 @@ export const adminUsers = sqliteTable('admin_users', {
   createdAt: createdAt(),
 });
 
+/* ============================================================
+ * Blog posts (diario)
+ * ============================================================ */
+export type PostStatus = 'draft' | 'published';
+
+export const posts = sqliteTable('posts', {
+  id: uuid('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  title: text('title').notNull(),
+  excerpt: text('excerpt'),
+  content: text('content').notNull(), // markdown
+  coverUrl: text('cover_url'),
+  authorName: text('author_name').default('Industrial Fighters'),
+  tags: text('tags', { mode: 'json' }).$type<string[]>().notNull().default(sql`'[]'`),
+  status: text('status').$type<PostStatus>().notNull().default('draft'),
+  publishedAt: integer('published_at', { mode: 'timestamp_ms' }),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+});
+
+export type Post = typeof posts.$inferSelect;
+
 export const adminAudit = sqliteTable('admin_audit', {
   id: uuid('id').primaryKey(),
   actorId: text('actor_id').references(() => adminUsers.id, { onDelete: 'set null' }),
