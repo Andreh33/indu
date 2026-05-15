@@ -20,8 +20,9 @@ type Splat = {
   alpha: number;
 };
 
-const MAX_DROPS = 36;
-const SPAWN_PROB = 0.4; // por frame
+const MAX_DROPS = 48;
+const SPAWN_PROB = 0.75; // por frame
+const INITIAL_BURST = 14;
 
 export default function GoreOverlay() {
   const active = useGoreMode();
@@ -60,17 +61,23 @@ export default function GoreOverlay() {
     let raf = 0;
     let last = performance.now();
 
-    function spawnDrop() {
+    function spawnDrop(prefill = false) {
       if (drops.length >= MAX_DROPS) return;
       drops.push({
         x: Math.random() * width,
-        y: -20 - Math.random() * 80,
-        vy: 180 + Math.random() * 280, // px/s
-        len: 14 + Math.random() * 38,
-        width: 1.4 + Math.random() * 2.4,
-        alpha: 0.55 + Math.random() * 0.35,
+        y: prefill
+          ? Math.random() * height * 0.7
+          : -20 - Math.random() * 80,
+        vy: 220 + Math.random() * 320, // px/s
+        len: 22 + Math.random() * 48,
+        width: 2 + Math.random() * 3,
+        alpha: 0.85 + Math.random() * 0.15,
       });
     }
+
+    // Burst inicial — pintamos la pantalla ya con gotas en vuelo
+    // para que el efecto se note al instante.
+    for (let i = 0; i < INITIAL_BURST; i++) spawnDrop(true);
 
     function tick(now: number) {
       if (!ctx) return;
@@ -86,10 +93,12 @@ export default function GoreOverlay() {
         d.vy += 480 * dt; // gravedad
         d.y += d.vy * dt;
 
+        // Trazo brillante del chorro — usamos rojos vívidos casi
+        // saturados para que destaquen sobre el tinte oscuro de fondo.
         const grad = ctx.createLinearGradient(d.x, d.y - d.len, d.x, d.y);
-        grad.addColorStop(0, `rgba(80, 0, 0, 0)`);
-        grad.addColorStop(0.55, `rgba(150, 8, 8, ${d.alpha * 0.55})`);
-        grad.addColorStop(1, `rgba(220, 30, 30, ${d.alpha})`);
+        grad.addColorStop(0, `rgba(120, 0, 0, 0)`);
+        grad.addColorStop(0.5, `rgba(220, 30, 30, ${d.alpha * 0.7})`);
+        grad.addColorStop(1, `rgba(255, 90, 90, ${d.alpha})`);
 
         ctx.strokeStyle = grad;
         ctx.lineWidth = d.width;
@@ -98,6 +107,12 @@ export default function GoreOverlay() {
         ctx.moveTo(d.x, d.y - d.len);
         ctx.lineTo(d.x, d.y);
         ctx.stroke();
+
+        // Cabeza redondeada brillante (highlight de la gota)
+        ctx.fillStyle = `rgba(255, 140, 140, ${d.alpha})`;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.width * 0.9, 0, Math.PI * 2);
+        ctx.fill();
 
         if (d.y >= height) {
           splats.push({
@@ -118,9 +133,9 @@ export default function GoreOverlay() {
           splats.splice(i, 1);
           continue;
         }
-        ctx.fillStyle = `rgba(180, 12, 12, ${s.alpha})`;
+        ctx.fillStyle = `rgba(255, 60, 60, ${s.alpha})`;
         ctx.beginPath();
-        ctx.ellipse(s.x, s.y, s.r * 1.6, s.r * 0.6, 0, 0, Math.PI * 2);
+        ctx.ellipse(s.x, s.y, s.r * 2.4, s.r * 0.9, 0, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -155,7 +170,7 @@ export default function GoreOverlay() {
       <canvas
         ref={canvasRef}
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[81]"
+        className="pointer-events-none fixed inset-0 z-[81] mix-blend-screen"
       />
     </>
   );
