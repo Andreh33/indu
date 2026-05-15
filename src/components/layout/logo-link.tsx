@@ -18,20 +18,26 @@ export default function LogoLink() {
   function onClick(e: React.MouseEvent) {
     const now = Date.now();
 
-    // Ventana triple-click corta — alterna modo carnicería.
     tripleClicks.current = tripleClicks.current.filter((t) => now - t < TRIPLE_WINDOW_MS);
+    clicks.current = clicks.current.filter((t) => now - t < WINDOW_MS);
+
     tripleClicks.current.push(now);
-    if (tripleClicks.current.length >= 3) {
+    clicks.current.push(now);
+
+    // Si hay 2+ clicks en ventana corta, el usuario está clicando
+    // múltiples veces — bloqueamos la navegación a "/" para no perder
+    // los siguientes clicks por re-render.
+    if (tripleClicks.current.length >= 2) {
       e.preventDefault();
+    }
+
+    if (tripleClicks.current.length >= 3) {
       tripleClicks.current = [];
       clicks.current = [];
       toggleGoreMode();
       return;
     }
 
-    // Ventana 5-click larga — abre créditos.
-    clicks.current = clicks.current.filter((t) => now - t < WINDOW_MS);
-    clicks.current.push(now);
     if (clicks.current.length >= THRESHOLD) {
       e.preventDefault();
       clicks.current = [];

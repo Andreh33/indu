@@ -4,7 +4,7 @@
 //   2. con manifest válido
 //   3. con un fetch handler que responda offline al start_url
 
-const CACHE = 'if-shell-v1';
+const CACHE = 'if-shell-v2';
 const SHELL = ['/', '/offline'];
 
 self.addEventListener('install', (event) => {
