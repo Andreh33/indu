@@ -2,15 +2,35 @@
 
 import * as Dialog from '@radix-ui/react-dialog';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import LogoWordmark from '@/components/brand/logo-wordmark';
+import LogoMark from '@/components/brand/logo-mark';
 
 const THRESHOLD = 5;
 const WINDOW_MS = 2000;
+/** Scroll en px tras el cual el logo se reduce a monograma */
+const SCROLL_BREAKPOINT = 320;
 
 export default function LogoLink() {
   const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const clicks = useRef<number[]>([]);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setCollapsed(window.scrollY > SCROLL_BREAKPOINT);
+        ticking = false;
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   function onClick(e: React.MouseEvent) {
     const now = Date.now();
@@ -31,7 +51,29 @@ export default function LogoLink() {
         aria-label="Industrial Fighters · Inicio"
         className="block text-[var(--color-canvas-0)] transition-colors hover:text-[var(--color-blood-300)]"
       >
-        <LogoWordmark className="h-10 md:h-12" />
+        <AnimatePresence mode="wait" initial={false}>
+          {collapsed ? (
+            <motion.div
+              key="mark"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              transition={{ duration: 0.3, ease: [0.7, 0, 0.2, 1] }}
+            >
+              <LogoMark className="h-10 w-10 md:h-12 md:w-12" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="wordmark"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <LogoWordmark className="h-10 md:h-12" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Link>
 
       <Dialog.Root open={open} onOpenChange={setOpen}>

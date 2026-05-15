@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import LogoMark from '@/components/brand/logo-mark';
+import SoundToggle from '@/components/layout/sound-toggle';
 import { getSocials } from '@/server/queries/settings';
 
 export default async function Footer() {
@@ -131,7 +132,10 @@ export default async function Footer() {
             <span className="inline-block h-2 w-2 animate-pulse bg-[var(--color-blood-400)]" />
             ROUND FINAL
           </p>
-          <p>DISEÑADO Y CONSTRUIDO A MANO</p>
+          <div className="flex items-center gap-4">
+            <SoundToggle />
+            <span>DISEÑADO Y CONSTRUIDO A MANO</span>
+          </div>
         </div>
       </div>
 

@@ -5,6 +5,8 @@ import RoundCounter from '@/components/home/round-counter';
 import AnimatedCounter from '@/components/motion/animated-counter';
 import Marquee from '@/components/motion/marquee';
 import ScrollFillText from '@/components/motion/scroll-fill-text';
+import SplitText from '@/components/motion/split-text';
+import ScrollPathDraw from '@/components/motion/scroll-path-draw';
 import JsonLd from '@/components/seo/json-ld';
 import { CategoryIcon } from '@/components/brand/icons';
 import HeroBackdrop from '@/components/home/hero-backdrop';
@@ -150,18 +152,13 @@ export default async function HomePage() {
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-blood-400)]">
             {'// ROUND 1 — IDENTIDAD · EST. 2019'}
           </p>
-          <h1
-            className="mt-10 font-display uppercase leading-[0.85] tracking-[-0.03em] text-[var(--color-canvas-0)]"
-            style={{ fontSize: 'var(--text-hero)' }}
-          >
-            De donde
-            <br />
-            venimos
-            <br />
-            se lucha
-            <br />
-            cada día.
-          </h1>
+          <SplitText
+            as="h1"
+            text={'De donde\nvenimos\nse lucha\ncada día.'}
+            staggerChildren={0.025}
+            delayChildren={0.25}
+            className="mt-10 font-display uppercase leading-[0.85] tracking-[-0.03em] text-[length:var(--text-hero)] text-[var(--color-canvas-0)]"
+          />
           <p className="mt-12 max-w-[44ch] text-[length:var(--text-lg)] text-[var(--color-fg-muted)]">
             Equipamiento de combate hecho a mano en España.
             <br />
@@ -319,6 +316,13 @@ export default async function HomePage() {
           </ul>
         </Container>
       </section>
+
+      {/* SEPARADOR · path drawing */}
+      <div className="border-b border-[var(--color-border)] py-12">
+        <Container size="max">
+          <ScrollPathDraw className="h-16" />
+        </Container>
+      </div>
 
       {/* PRODUCTO DESTACADO */}
       {heroProduct ? (

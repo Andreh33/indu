@@ -219,6 +219,37 @@ body {
   }
 }
 
+/* View Transitions API: navegación con clip-path mask + fade */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: page-out 0.35s cubic-bezier(0.7, 0, 0.2, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 /* View Transitions con reduced motion (§8.5) */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),

@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CartItem } from '@/types/cart';
+import { playClick, playSwoosh } from '@/lib/audio/play';
 
 type CartState = {
   items: CartItem[];
@@ -34,6 +35,7 @@ export const useCartStore = create<CartState>()(
       add: (input) => {
         const quantity = input.quantity ?? 1;
         const key = configKey(input.variants, input.customization);
+        playClick();
         set((state) => {
           const existing = state.items.find(
             (i) => i.productId === input.productId && configKey(i.variants, i.customization) === key,
@@ -63,9 +65,16 @@ export const useCartStore = create<CartState>()(
             .filter((i) => i.quantity > 0),
         })),
       clear: () => set({ items: [] }),
-      open: () => set({ isOpen: true }),
+      open: () => {
+        playSwoosh();
+        set({ isOpen: true });
+      },
       close: () => set({ isOpen: false }),
-      toggle: () => set((state) => ({ isOpen: !state.isOpen })),
+      toggle: () =>
+        set((state) => {
+          if (!state.isOpen) playSwoosh();
+          return { isOpen: !state.isOpen };
+        }),
       setHydrated: () => set({ hydrated: true }),
     }),
     {
