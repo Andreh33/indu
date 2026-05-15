@@ -157,8 +157,8 @@ function TopoPlane({ lineCount, speed }: { lineCount: number; speed: number }) {
 export default function TopographyBg() {
   const reduced = usePrefersReducedMotion();
   const isMobile = useMediaQuery('(max-width: 768px)');
-  // Líneas más separadas: ~25 desktop, ~15 mobile.
-  const lineCount = isMobile ? 15 : 25;
+  // Más líneas en mobile (antes 15 quedaban demasiado dispersas en pantalla pequeña).
+  const lineCount = isMobile ? 22 : 25;
   // Velocidad lenta por defecto; aún más lenta si el sistema pide reducción.
   // Nunca congelamos a 0 — preservamos la "respiración" de la marca pero sin marear.
   const speed = reduced ? 0.01 : 0.025;

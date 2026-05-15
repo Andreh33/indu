@@ -7,14 +7,14 @@ import CartDrawerMount from '@/components/shop/cart-drawer-mount';
 import GlobalEasterEggs from '@/components/easter-eggs/global-easter-eggs';
 import LoadingIntro from '@/components/layout/loading-intro';
 import AppInstallBanner from '@/components/layout/app-install-banner';
-import { getAnnouncementBar } from '@/server/queries/settings';
+import { getAnnouncementBar, getSocials } from '@/server/queries/settings';
 
 export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const announcement = await getAnnouncementBar();
+  const [announcement, socials] = await Promise.all([getAnnouncementBar(), getSocials()]);
   return (
     <SiteProviders>
       <TopoDimOverlay />
@@ -29,7 +29,7 @@ export default async function PublicLayout({
       ) : null}
       <Nav />
       <main id="main" className="relative z-[2] flex-1">{children}</main>
-      <Footer />
+      <Footer socials={socials} />
       <CartDrawerMount />
       <GlobalEasterEggs />
       <LoadingIntro />

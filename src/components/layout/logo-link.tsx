@@ -31,7 +31,7 @@ export default function LogoLink() {
         aria-label="Industrial Fighters · Inicio"
         className="block text-[var(--color-canvas-0)] transition-colors hover:text-[var(--color-blood-300)]"
       >
-        <LogoWordmark className="h-10 md:h-12" />
+        <LogoWordmark className="h-5 sm:h-7 md:h-10 lg:h-12 max-w-[55vw]" />
       </Link>
 
       <Dialog.Root open={open} onOpenChange={setOpen}>

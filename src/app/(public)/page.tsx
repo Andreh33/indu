@@ -145,7 +145,7 @@ export default async function HomePage() {
       <RoundCounter />
 
       {/* HERO */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pt-12 pb-20 text-center">
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden pt-12 pb-20 text-center">
         <HeroBackdrop />
         <Container size="xl" className="relative z-[1] flex flex-col items-center">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-blood-400)]">
