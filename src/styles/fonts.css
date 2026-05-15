@@ -1,0 +1,11 @@
+/* =========================================================
+   FONTS · self-hosted via @fontsource
+   - Inter Variable: body
+   - JetBrains Mono Variable: mono / eyebrows / códigos
+   - Anton: display provisional (sustituir por Druk Wide
+     u otra de pago al licenciarla)
+   ========================================================= */
+
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource/anton';

@@ -1,0 +1,229 @@
+@import 'tailwindcss';
+@import '../styles/fonts.css';
+
+/* =========================================================
+   INDUSTRIAL FIGHTERS · DESIGN TOKENS
+   Ver §4 del prompt maestro.
+   ========================================================= */
+
+@theme {
+  /* ------- Paleta · Neutros (lona / hormigón / negro) ------- */
+  --color-canvas-0: #fafaf7;
+  --color-canvas-50: #f0efea;
+  --color-canvas-100: #e2e0d8;
+  --color-canvas-200: #c5c2b5;
+  --color-canvas-300: #9f9c8e;
+  --color-canvas-400: #7a7768;
+  --color-canvas-500: #555246;
+  --color-canvas-600: #3d3b33;
+  --color-canvas-700: #2a2823;
+  --color-canvas-800: #1a1916;
+  --color-canvas-900: #0e0e0c;
+  --color-canvas-950: #050505;
+
+  /* ------- Paleta · Sangre (rojo bandera, no Coca-Cola) ------- */
+  --color-blood-50: #fff2f2;
+  --color-blood-100: #ffd9d9;
+  --color-blood-200: #ffa8a8;
+  --color-blood-300: #ff6b6b;
+  --color-blood-400: #ed2939;
+  --color-blood-500: #c81e2e;
+  --color-blood-600: #a11421;
+  --color-blood-700: #7a0e18;
+  --color-blood-800: #520910;
+  --color-blood-900: #2d0508;
+
+  /* ------- Acento secundario (solo easter eggs) ------- */
+  --color-electric: #b4ff39;
+
+  /* ------- Funcionales ------- */
+  --color-success: #2d7a3d;
+  --color-warning: #c8901e;
+  --color-danger: var(--color-blood-500);
+
+  /* ------- Aliases semánticos ------- */
+  --color-bg: var(--color-canvas-950);
+  --color-bg-elevated: var(--color-canvas-900);
+  --color-bg-card: var(--color-canvas-800);
+  --color-fg: var(--color-canvas-50);
+  --color-fg-muted: var(--color-canvas-300);
+  --color-fg-subtle: var(--color-canvas-500);
+  --color-border: var(--color-canvas-700);
+  --color-border-strong: var(--color-canvas-500);
+  --color-accent: var(--color-blood-400);
+  --color-accent-hover: var(--color-blood-300);
+
+  /* ------- Tipografía ------- */
+  --font-display: 'Anton', 'Impact', 'Bebas Neue', sans-serif;
+  --font-body: 'Inter Variable', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'Menlo', monospace;
+
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.85rem);
+  --text-sm: clamp(0.875rem, 0.82rem + 0.25vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-xl: clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.55rem + 1vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.9rem + 1.8vw, 3.5rem);
+  --text-4xl: clamp(3rem, 2.4rem + 3vw, 5rem);
+  --text-5xl: clamp(4rem, 3rem + 5vw, 7.5rem);
+  --text-6xl: clamp(5rem, 3.5rem + 7.5vw, 10rem);
+  --text-hero: clamp(6rem, 4rem + 12vw, 14rem);
+
+  /* ------- Espaciado ------- */
+  --spacing-section: clamp(4rem, 2rem + 8vw, 10rem);
+
+  /* ------- Containers ------- */
+  --container-sm: 40rem;
+  --container-md: 48rem;
+  --container-lg: 64rem;
+  --container-xl: 80rem;
+  --container-2xl: 96rem;
+  --container-max: 110rem;
+
+  /* ------- Radius ------- */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* ------- Shadows ------- */
+  --shadow-flat: none;
+  --shadow-card: 0 0 0 1px var(--color-border);
+  --shadow-card-hover: 0 0 0 1px var(--color-blood-400);
+  --shadow-modal: 0 20px 60px -10px rgba(0, 0, 0, 0.8);
+  --shadow-glow-red: 0 0 30px -5px var(--color-blood-400);
+
+  /* ------- Motion ------- */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+  --duration-cinematic: 1200ms;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-fight: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+/* =========================================================
+   Reset puntual + estilos base
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* El body es transparente para que el background fijo de topografía sea visible. */
+body {
+  background: transparent;
+}
+
+body {
+  min-height: 100svh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-blood-400);
+  color: var(--color-canvas-0);
+}
+
+/* Focus visible: anillo rojo offset 4px (§7.4) */
+*:focus-visible {
+  outline: 2px solid var(--color-blood-400);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Quitar focus de mouse, mantenerlo en keyboard */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Shimmer para skeletons */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Marquee horizontal infinito (4× repeat → translate -25% = una copia) */
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+/* Ken Burns para imágenes de hero (zoom + pan lento) */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate(-1%, -1.5%);
+  }
+}
+
+/* Scan line cinematográfica del hero */
+@keyframes hero-scan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Reduced motion (§0.1) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* View Transitions con reduced motion (§8.5) */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

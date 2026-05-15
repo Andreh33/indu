@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="currentColor" aria-label="Industrial Fighters">
+  <!-- Cuadrado exterior con esquina recortada (efecto bandera/sello) -->
+  <path d="M10 10 L180 10 L190 20 L190 190 L20 190 L10 180 Z" fill="none" stroke="currentColor" stroke-width="4" />
+  <!-- Línea diagonal interior superior derecha -->
+  <line x1="180" y1="10" x2="190" y2="20" stroke="currentColor" stroke-width="4" />
+  <!-- Monograma IF grande -->
+  <g font-family="'Anton','Impact',sans-serif" font-weight="900" font-size="120" letter-spacing="-4" text-anchor="middle">
+    <text x="100" y="120">IF</text>
+  </g>
+  <!-- Banda inferior con texto pequeño -->
+  <g transform="translate(100 158)" text-anchor="middle" font-family="'JetBrains Mono','Menlo',monospace" font-size="9" letter-spacing="3">
+    <line x1="-50" y1="0" x2="-12" y2="0" stroke="currentColor" stroke-width="1.5" />
+    <line x1="12" y1="0" x2="50" y2="0" stroke="currentColor" stroke-width="1.5" />
+    <text y="3.5">EST. 2019</text>
+  </g>
+  <!-- Punto rojo de firma -->
+  <circle cx="100" cy="178" r="3" fill="#ED2939" />
+</svg>

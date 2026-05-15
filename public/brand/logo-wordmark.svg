@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" fill="currentColor" aria-label="Industrial Fighters">
+  <g>
+    <!-- INDUSTRIAL — heavy condensed -->
+    <text x="0" y="76" font-family="'Anton','Impact',sans-serif" font-weight="900" font-size="80" letter-spacing="-2">INDUSTRIAL</text>
+    <!-- FIGHTERS -->
+    <text x="0" y="156" font-family="'Anton','Impact',sans-serif" font-weight="900" font-size="80" letter-spacing="-2">FIGHTERS.</text>
+    <!-- Separador horizontal grueso -->
+    <rect x="0" y="86" width="430" height="6" />
+    <!-- Marca lateral derecha -->
+    <g transform="translate(450 18)" font-family="'JetBrains Mono','Menlo',monospace" font-size="11" letter-spacing="3">
+      <text>EST.</text>
+      <text y="18">2019</text>
+      <line x1="0" y1="36" x2="40" y2="36" stroke="currentColor" stroke-width="1.5" />
+      <text y="54">·</text>
+      <text y="76">RD.</text>
+      <text y="96" fill="#ED2939" font-weight="700">RED</text>
+    </g>
+    <!-- Punto rojo de cierre tras "FIGHTERS." -->
+    <circle cx="408" cy="148" r="6" fill="#ED2939" />
+  </g>
+</svg>
