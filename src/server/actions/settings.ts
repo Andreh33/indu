@@ -1,6 +1,6 @@
 'use server';
 
-import { updateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { db } from '@/lib/db/client';
@@ -16,8 +16,8 @@ async function upsertSetting(key: string, value: unknown, actorId: string) {
   } else {
     await db.insert(settings).values({ key, value, updatedBy: actorId });
   }
-  updateTag('settings');
-  updateTag(`settings:${key}`);
+  revalidateTag('settings', 'default');
+  revalidateTag(`settings:${key}`, 'default');
 }
 
 const ContactSchema = z.object({

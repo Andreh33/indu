@@ -1,6 +1,6 @@
 'use server';
 
-import { updateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
@@ -121,8 +121,8 @@ export async function createProductAction(
     );
   }
 
-  updateTag('products');
-  updateTag(`product:${parsed.data.slug}`);
+  revalidateTag('products', 'default');
+  revalidateTag(`product:${parsed.data.slug}`, 'default');
   redirect(`/admin/productos/${id}/editar`);
 }
 
@@ -181,14 +181,14 @@ export async function updateProductAction(
     );
   }
 
-  updateTag('products');
-  updateTag(`product:${parsed.data.slug}`);
+  revalidateTag('products', 'default');
+  revalidateTag(`product:${parsed.data.slug}`, 'default');
   return { error: null };
 }
 
 export async function deleteProductAction(id: string) {
   await requireAdmin();
   await db.delete(products).where(eq(products.id, id));
-  updateTag('products');
+  revalidateTag('products', 'default');
   redirect('/admin/productos');
 }

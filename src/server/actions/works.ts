@@ -1,6 +1,6 @@
 'use server';
 
-import { updateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
@@ -132,7 +132,7 @@ export async function createWorkAction(
   const imgs = buildImageRows(id, parsed.data.heroImageUrls, parsed.data.resultImageUrls);
   if (imgs.length) await db.insert(workImages).values(imgs);
 
-  updateTag('works');
+  revalidateTag('works', 'default');
   redirect(`/admin/galeria/${id}/editar`);
 }
 
@@ -197,13 +197,13 @@ export async function updateWorkAction(
   const imgs = buildImageRows(id, parsed.data.heroImageUrls, parsed.data.resultImageUrls);
   if (imgs.length) await db.insert(workImages).values(imgs);
 
-  updateTag('works');
+  revalidateTag('works', 'default');
   return { error: null };
 }
 
 export async function deleteWorkAction(id: string) {
   await requireAdmin();
   await db.delete(works).where(eq(works.id, id));
-  updateTag('works');
+  revalidateTag('works', 'default');
   redirect('/admin/galeria');
 }

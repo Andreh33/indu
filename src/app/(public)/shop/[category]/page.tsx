@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import Container from '@/components/ui/container';
 import FilterBar from '@/components/shop/filter-bar';
 import ProductGrid from '@/components/shop/product-grid';
+import Skeleton from '@/components/ui/skeleton';
 import {
   getCategories,
   getCategoryBySlug,
@@ -25,7 +27,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function ShopCategoryPage({ params }: { params: Promise<Params> }) {
+export default function ShopCategoryPage({ params }: { params: Promise<Params> }) {
+  return (
+    <Suspense fallback={<CategorySkeleton />}>
+      <CategoryContent params={params} />
+    </Suspense>
+  );
+}
+
+async function CategoryContent({ params }: { params: Promise<Params> }) {
   const { category } = await params;
   const [categories, cat, products] = await Promise.all([
     getCategories(),
@@ -38,7 +48,7 @@ export default async function ShopCategoryPage({ params }: { params: Promise<Par
     <>
       <section className="relative flex h-[40vh] items-end overflow-hidden border-b border-[var(--color-border)]">
         <Container size="max" className="py-12">
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-fg-subtle)]">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-blood-400)]">
             {`// CATEGORÍA · ${cat.name.toUpperCase()}`}
           </p>
           <h1
@@ -56,5 +66,18 @@ export default async function ShopCategoryPage({ params }: { params: Promise<Par
         <ProductGrid products={products} />
       </Container>
     </>
+  );
+}
+
+function CategorySkeleton() {
+  return (
+    <Container size="max" className="py-16">
+      <Skeleton className="mb-12 h-48 w-full" />
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <Skeleton key={i} className="aspect-[4/5] w-full" />
+        ))}
+      </div>
+    </Container>
   );
 }

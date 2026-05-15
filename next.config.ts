@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  cacheComponents: true,
+  // cacheComponents: true,  // deshabilitado por ahora — re-evaluar tras pulir Suspense en todas las rutas dinámicas (admin login, /admin/*, etc.)
   turbopack: {
     root: __dirname,
   },

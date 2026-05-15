@@ -1,13 +1,9 @@
 import 'server-only';
 import { asc, desc, eq } from 'drizzle-orm';
-import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '@/lib/db/client';
 import { workImages, works } from '@/lib/db/schema';
 
 export async function getPublishedWorks() {
-  'use cache';
-  cacheLife('hours');
-  cacheTag('works');
   const rows = await db
     .select()
     .from(works)
@@ -20,9 +16,6 @@ export async function getPublishedWorks() {
 }
 
 export async function getFeaturedWorks(limit = 3) {
-  'use cache';
-  cacheLife('hours');
-  cacheTag('works', `works:featured:${limit}`);
   const rows = await db
     .select()
     .from(works)
@@ -37,9 +30,6 @@ export async function getFeaturedWorks(limit = 3) {
 }
 
 export async function getWorkBySlug(slug: string) {
-  'use cache';
-  cacheLife('hours');
-  cacheTag('works', `work:${slug}`);
   const rows = await db.select().from(works).where(eq(works.slug, slug)).limit(1);
   const work = rows[0];
   if (!work || !work.published) return null;

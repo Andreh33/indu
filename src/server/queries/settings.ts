@@ -1,6 +1,5 @@
 import 'server-only';
 import { eq } from 'drizzle-orm';
-import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '@/lib/db/client';
 import { settings } from '@/lib/db/schema';
 
@@ -14,9 +13,6 @@ export type SocialsSettings = {
 };
 
 export async function getSetting<T>(key: string): Promise<T | null> {
-  'use cache';
-  cacheLife('minutes');
-  cacheTag('settings', `settings:${key}`);
   const rows = await db.select().from(settings).where(eq(settings.key, key)).limit(1);
   return (rows[0]?.value as T) ?? null;
 }
